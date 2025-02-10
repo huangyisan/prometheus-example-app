@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-example-app-servicemonitor
+  namespace: lab
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-example-app # 选择带有 `app=my-service` 标签的 Service
+  namespaceSelector:
+    matchNames:
+      - lab # 选择 lab namespace 中符合条件的 Service
+  endpoints:
+    - port: metrics # 监听 Service 公开的 `metrics` 端口
+      path: /metrics # 采集指标的 HTTP 路径
+      interval: 30s # 抓取周期（默认 30s）
+      scrapeTimeout: 10s

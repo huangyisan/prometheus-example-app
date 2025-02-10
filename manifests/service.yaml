@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: prometheus-example-app
   namespace: lab
+  labels:
+    app: prometheus-example-app
 spec:
   selector:
     app: prometheus-example-app
   ports:
     - port: 80
       targetPort: web
+      name: metrics
